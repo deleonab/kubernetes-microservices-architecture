@@ -10,7 +10,7 @@
 }
 
 ```
-
+##### Configure minikube to use docker as it's driver
 ```
 deles@DESKTOP-PURLK18 MINGW64 ~/Documents/kubernetes-deploy-pod
 $ minikube start --driver=docker
@@ -24,6 +24,35 @@ $ minikube start --driver=docker
     ▪ Using image gcr.io/k8s-minikube/storage-provisioner:v5
 🌟  Enabled addons: storage-provisioner, default-storageclass
 🏄  Done! kubectl is now configured to use "minikube" cluster and "default" namespace by default
+```
+##### Create pods directory for pod definition templates
+```
+mkdir pods
+```
+##### Create nginx.yml our nginx pods image
+
+```
+apiVersion: v1
+kind: Pod
+metadata:
+  name: test
+  labels:
+      app: myapps
+spec:
+  containers:
+    - name: nginx
+      image: nginx
+```
+
+
+
+
+
+
+
+
+
+
 
 deles@DESKTOP-PURLK18 MINGW64 ~/Documents/kubernetes-deploy-pod
 $ kubectl create -f replica-set.yml
