@@ -52,6 +52,57 @@ mkdir replicasets
 touch replicasets/replicaset.yml
 ```
 
+##### in replicaset.yml
+```
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: myapp-replicaset
+  labels:
+    app: myapp
+spec:    
+```
+
+##### under the spec section, we need to add the pod definition (without the apiversion and kind)
+##### We shall use the nginx.yaml pod definition
+##### The matchLabels label must be the same as the metadata label.
+##### label on selector and pod must match as it is what ties them together
+
+##### The updated replicaset.yml
+
+```
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: myapp-replicaset
+  labels:
+    app: myapp
+    
+
+spec:
+  selector:
+    matchLabels:
+      app: myapps
+    
+  replicas: 3
+
+  template:
+    metadata:
+      name: nginx
+      labels:    
+        app: myapps
+        
+    spec:
+       containers:
+       - name: nginx
+         image: nginx
+
+```
+
+
+
+
+
 
 
 
