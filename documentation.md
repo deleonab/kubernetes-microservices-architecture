@@ -44,6 +44,14 @@ spec:
       image: nginx
 ```
 
+##### Next Let's create add ReplicaSets to our configuration
+##### Create a folder replicasets and inside it, create a file replicaset.yml
+```
+mkdir replicasets
+
+touch replicasets/replicaset.yml
+```
+
 
 
 
