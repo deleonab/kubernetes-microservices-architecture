@@ -168,6 +168,42 @@ nginx-2                  1/1     Terminating   0          9s
 ##### The new pod is terminated
 
 
+---
+
+##### I will now scale the number of pods in the replica to 5
+
+```
+kubectl scale replicaset myapp-replicaset --replicas=5
+
+```
+
+##### check if scale succesful 
+```
+kubectl get replicaset
+```
+```
+$ kubectl get replicaset
+NAME               DESIRED   CURRENT   READY   AGE
+myapp-replicaset   5         5         5       12h
+```
+
+##### I will display the created pods which are now 5
+```
+
+$ kubectl get pods
+NAME                     READY   STATUS    RESTARTS   AGE  
+myapp-replicaset-47v2h   1/1     Running   0          29m  
+myapp-replicaset-97xpg   1/1     Running   0          12h  
+myapp-replicaset-dd25k   1/1     Running   0          3m32s
+myapp-replicaset-g2ng7   1/1     Running   0          12h  
+myapp-replicaset-tlng2   1/1     Running   0          3m32s
+```
+
+
+
+
+
+
 
 
 
