@@ -146,6 +146,17 @@ myapp-replicaset-97xpg   1/1     Running             0          12h
 myapp-replicaset-g2ng7   1/1     Running             0          12h
 ```
 
+
+##### If we create a new pod with the same label as the replicaset, it will be removed automatically if the maximum number of pods are running
+Lets create another pod using the nginx.yml file and not the replicaset.jml file
+
+```
+kubectl create -f nginx.yml
+```
+
+
+
+
 deles@DESKTOP-PURLK18 MINGW64 ~/Documents/kubernetes-deploy-pod
 $ kubectl create -f replica-set.yml
 error: resource mapping not found for name: "myapp-replicaset" namespace: "" from "replica-set.yml": no matches for kind "ReplicaSet" in version "app/v1"
