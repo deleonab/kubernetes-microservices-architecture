@@ -11,7 +11,7 @@ spec:
     matchLabels:
       app: myapps
     
-  replicas: 3
+  replicas: 4
 
   template:
     metadata:
