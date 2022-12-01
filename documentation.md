@@ -266,6 +266,10 @@ deployment.apps/myapp-deployment created
 ##### Run commands to view created oblects
 
 ```
+$ kubectl get deployment
+NAME               READY   UP-TO-DATE   AVAILABLE   AGE
+myapp-deployment   3/3     3            3           66m
+
 $ kubectl get replicaset
 NAME                          DESIRED   CURRENT   READY   AGE
 myapp-deployment-567f66cdb4   3         3         3       25s
