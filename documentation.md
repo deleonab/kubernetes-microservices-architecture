@@ -171,6 +171,7 @@ nginx-2                  1/1     Terminating   0          9s
 ---
 
 ##### I will now scale the number of pods in the replica to 5
+##### This can be done on the command line as shown below or by editing the replicaset.yml file and setting the replica value to 5
 
 ```
 kubectl scale replicaset myapp-replicaset --replicas=5
@@ -199,10 +200,29 @@ myapp-replicaset-g2ng7   1/1     Running   0          12h
 myapp-replicaset-tlng2   1/1     Running   0          3m32s
 ```
 
+##### To scale by editing the .yaml file
+##### Let us scale pods to 6
 
+```
+kubectl edit replicaset myapp-replicaset
+```
+##### This opens a text file and I updated replicas to 6
 
-
-
+```
+$ kubectl get replicaset
+NAME               DESIRED   CURRENT   READY   AGE
+myapp-replicaset   6         6         6       12h
+```
+```
+$ kubectl get pods
+NAME                     READY   STATUS    RESTARTS   AGE
+myapp-replicaset-47v2h   1/1     Running   0          38m
+myapp-replicaset-97xpg   1/1     Running   0          12h
+myapp-replicaset-dd25k   1/1     Running   0          12m
+myapp-replicaset-f22hl   1/1     Running   0          3m46s
+myapp-replicaset-g2ng7   1/1     Running   0          12h
+myapp-replicaset-tlng2   1/1     Running   0          12m
+```
 
 
 
