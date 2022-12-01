@@ -225,9 +225,21 @@ myapp-replicaset-tlng2   1/1     Running   0          12m
 ```
 
 
+##### We may also need to scale down our replicaset
+
+```
+kubectl scale replicaset myapp-replicaset --replicas=2
+```
+
+```
+$ kubectl scale replicaset myapp-replicaset --replicas=2
+replicaset.apps/myapp-replicaset scaled
 
 
-
+$ kubectl get replicaset
+NAME               DESIRED   CURRENT   READY   AGE
+myapp-replicaset   2         2         2       12h
+```
 
 
 
