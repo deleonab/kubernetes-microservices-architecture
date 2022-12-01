@@ -99,19 +99,52 @@ spec:
 
 ```
 
+##### Now lets create the replicaset
+
+```
+kubectl create -f replicaset.yml
+```
+
+##### I initially got errors as the selector and pod labels didn't match
 
 
+```
+$ kubectl create -f replicaset.yml
+replicaset.apps/myapp-replicaset created
 
+$ kubectl get replicaset
+NAME               DESIRED   CURRENT   READY   AGE
+myapp-replicaset   3         3         3       3h25m
 
+deles@DESKTOP-PURLK18 MINGW64 ~/Documents/kubernetes-microservices-architecture/replicasets (main)
+$ kubectl get pods
+NAME                     READY   STATUS    RESTARTS   AGE
+myapp-replicaset-2pkzg   1/1     Running   0          3h27m
+myapp-replicaset-97xpg   1/1     Running   0          3h27m
+myapp-replicaset-g2ng7   1/1     Running   0          3h27m
 
+```
 
+##### One replicaset comprised of 3 pods created succesfully
 
+##### Let's delete one pod to see if the replicset will spin up another automatically
 
+```
+kubectl delete pod myapp-replicaset-2pkzg
+```
+##### The replicaset immediately starts creating another pod/container
 
+```
+$ kubectl delete pod myapp-replicaset-2pkzg
+pod "myapp-replicaset-2pkzg" deleted
 
-
-
-
+deles@DESKTOP-PURLK18 MINGW64 ~/Documents/kubernetes-microservices-architecture/replicasets (main)
+$ kubectl get pods
+NAME                     READY   STATUS              RESTARTS   AGE
+myapp-replicaset-47v2h   0/1     ContainerCreating   0          7s
+myapp-replicaset-97xpg   1/1     Running             0          12h
+myapp-replicaset-g2ng7   1/1     Running             0          12h
+```
 
 deles@DESKTOP-PURLK18 MINGW64 ~/Documents/kubernetes-deploy-pod
 $ kubectl create -f replica-set.yml
