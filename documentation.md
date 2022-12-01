@@ -147,12 +147,37 @@ myapp-replicaset-g2ng7   1/1     Running             0          12h
 ```
 
 
-##### If we create a new pod with the same label as the replicaset, it will be removed automatically if the maximum number of pods are running
-Lets create another pod using the nginx.yml file and not the replicaset.jml file
+##### If we create a new pod with the same label as the replicaset, it will be terminated automatically if the maximum number of pods are running
+Lets create another pod using the nginx.yml file and not the replicaset.yml file
 
 ```
 kubectl create -f nginx.yml
 ```
+##### Here is the result
+
+```
+$ kubectl get pods
+NAME                     READY   STATUS        RESTARTS   AGE
+myapp-replicaset-47v2h   1/1     Running       0          18m
+myapp-replicaset-97xpg   1/1     Running       0          12h
+myapp-replicaset-g2ng7   1/1     Running       0          12h
+nginx-2                  1/1     Terminating   0          9s
+```
+
+
+##### The new pod is terminated
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
