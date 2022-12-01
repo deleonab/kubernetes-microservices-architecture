@@ -263,7 +263,21 @@ deployment.apps/myapp-deployment created
 
 ```
 
+##### Run commands to view created oblects
 
+```
+$ kubectl get replicaset
+NAME                          DESIRED   CURRENT   READY   AGE
+myapp-deployment-567f66cdb4   3         3         3       25s
+
+   
+$ kubectl get pods
+NAME                                READY   STATUS    RESTARTS   AGE
+myapp-deployment-567f66cdb4-7pwdk   1/1     Running   0          38s
+myapp-deployment-567f66cdb4-grgqz   1/1     Running   0          38s
+myapp-deployment-567f66cdb4-xwbmc   1/1     Running   0          38s
+
+```
 
 
 
