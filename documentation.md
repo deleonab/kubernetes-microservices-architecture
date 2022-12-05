@@ -282,8 +282,13 @@ myapp-deployment-567f66cdb4-grgqz   1/1     Running   0          38s
 myapp-deployment-567f66cdb4-xwbmc   1/1     Running   0          38s
 
 ```
-###
+##### Next, I will experiment with updates, upgrades and rollbacks in deployments
+##### I have deleted all pods
 
+```
+$ kubectl get pods
+No resources found in default namespace.
+```
 
 
 
