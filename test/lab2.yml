@@ -17,7 +17,7 @@ spec:
           app: app-httpd
      spec:
        containers:
-         - name: httpd:2.4-alpine
+         - name: myhttpd-container
            image: httpd:2.4-alpine
 
   replicas: 3
