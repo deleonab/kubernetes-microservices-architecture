@@ -289,6 +289,111 @@ myapp-deployment-567f66cdb4-xwbmc   1/1     Running   0          38s
 $ kubectl get pods
 No resources found in default namespace.
 ```
+```
+$ kubectl create -f deployment-definition.yml
+deployment.apps/myapp-deployment created
+
+$ kubectl rollout status deployment.apps/myapp-deployment
+Waiting for deployment "myapp-deployment" rollout to finish: 0 of 3 updated replicas are available...
+Waiting for deployment "myapp-deployment" rollout to finish: 1 of 3 updated replicas are available...
+Waiting for deployment "myapp-deployment" rollout to finish: 2 of 3 updated replicas are available...
+deployment "myapp-deployment" successfully rolled out
+```
+
+```
+$ kubectl rollout history deployment.apps/myapp-deployment
+deployment.apps/myapp-deployment 
+REVISION  CHANGE-CAUSE
+1         <none>
+```
+##### to record the change/cause
+##### Delete the deployment and recreate with --record option then run the history command again
+
+```
+$ kubectl delete deployment myapp-deployment
+deployment.apps "myapp-deployment" deleted
+
+$ kubectl create -f deployment-definition.yml --record
+Flag --record has been deprecated, --record will be removed in the future
+deployment.apps/myapp-deployment created
+
+$ kubectl rollout history deployment.apps/myapp-deployment
+deployment.apps/myapp-deployment
+REVISION  CHANGE-CAUSE
+1         kubectl.exe create --filename=deployment-definition.yml --record=true
+
+```
+
+##### Now let's edit the deployment and then track the recording
+##### We will change container image from nginx latest to 1.19
+nginx:1.19
+```
+$ kubectl edit deployment myapp-deployment --record
+Flag --record has been deprecated, --record will be removed in the future
+deployment.apps/myapp-deployment edited
+
+$ kubectl rollout history deployment.apps/myapp-deployment
+deployment.apps/myapp-deployment 
+REVISION  CHANGE-CAUSE
+1         kubectl.exe create --filename=deployment-definition.yml --record=true
+2         kubectl.exe edit deployment myapp-deployment --record=true
+```
+
+
+##### You can see the rolling updates in the event section when you describe the deployment
+
+```
+$ kubectl describe deployment myapp-deployment
+Name:                   myapp-deployment
+Namespace:              default
+CreationTimestamp:      Mon, 05 Dec 2022 13:14:48 +0000
+Labels:                 app=myapp
+Annotations:            deployment.kubernetes.io/revision: 2
+                        kubernetes.io/change-cause: kubectl.exe edit deployment myapp-deployment --record=true
+Selector:               app=myapps
+Replicas:               3 desired | 3 updated | 3 total | 3 available | 0 unavailable
+StrategyType:           RollingUpdate
+MinReadySeconds:        0
+RollingUpdateStrategy:  25% max unavailable, 25% max surge
+Pod Template:
+  Labels:  app=myapps
+  Containers:
+   nginx-containers:
+    Image:        nginx:1.19
+    Port:         <none>
+    Host Port:    <none>
+    Environment:  <none>
+    Mounts:       <none>
+  Volumes:        <none>
+Conditions:
+  Type           Status  Reason
+  ----           ------  ------
+  Available      True    MinimumReplicasAvailable
+  Progressing    True    NewReplicaSetAvailable
+OldReplicaSets:  <none>
+NewReplicaSet:   myapp-deployment-66dcb95ffd (3/3 replicas created)
+Events:
+  Type    Reason             Age    From                   Message
+  ----    ------             ----   ----                   -------
+  Normal  ScalingReplicaSet  121m   deployment-controller  Scaled up replica set myapp-deployment-6769cb8647 to 3
+  Normal  ScalingReplicaSet  2m13s  deployment-controller  Scaled up replica set myapp-deployment-66dcb95ffd to 1
+  Normal  ScalingReplicaSet  96s    deployment-controller  Scaled down replica set myapp-deployment-6769cb8647 to 2 from 3
+  Normal  ScalingReplicaSet  96s    deployment-controller  Scaled up replica set myapp-deployment-66dcb95ffd to 2 from 1
+  Normal  ScalingReplicaSet  93s    deployment-controller  Scaled down replica set myapp-deployment-6769cb8647 to 1 from 2
+  Normal  ScalingReplicaSet  93s    deployment-controller  Scaled up replica set myapp-deployment-66dcb95ffd to 3 from 2
+  Normal  ScalingReplicaSet  89s    deployment-controller  Scaled down replica set myapp-deployment-6769cb8647 to 0 from 1
+
+```
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -585,3 +690,5 @@ Events:
   Normal  SuccessfulDelete  6m22s               replicaset-controller  Deleted pod: test2
   Normal  SuccessfulDelete  83s (x4 over 5m6s)  replicaset-controller  Deleted pod: test
 ```
+
+love Omonlua
