@@ -572,3 +572,132 @@ $ touch VOTING-APP/voting-app-service.yml
 
 $ touch VOTING-APP/result-service.yml
 ```
+##### redis-service.yml
+```
+apiVersion: v1 
+kind: Service
+metadata:
+   name: redis
+   labels:
+      name: redis-service
+      app: demo-voting-app
+
+spec:
+  ports:
+    - targetPort: 6379
+      port: 6379
+
+  selector:
+    name: redis-pod
+    app: demo-voting-app
+
+    
+```
+
+##### postgres-service.yml
+```
+apiVersion: v1 
+kind: Service
+metadata:
+   name: db
+   labels:
+      name: postgres-service
+      app: demo-voting-app
+
+spec:
+  ports:
+    - targetPort: 5432
+      port: 5432
+
+  selector:
+    name: postgres-pod
+    app: demo-voting-app
+
+  ```
+
+  ##### voting-app-service.yml
+
+  ```
+apiVersion: v1 
+kind: Service
+metadata:
+   name: voting-service
+   labels:
+      name: voting-service
+      app: demo-voting-app
+
+spec:
+  type: NodePort
+  ports:
+    - targetPort: 80
+      port: 80
+      nodePort: 30004
+
+  selector:
+    name: voting-app-pod
+    app: demo-voting-app
+
+  ```
+
+  ##### result-service.yml
+
+  ```
+apiVersion: v1 
+kind: Service
+metadata:
+   name: result-service
+   labels:
+      name: result-service
+      app: demo-voting-app
+
+spec:
+  type: NodePort
+  ports:
+    - targetPort: 80
+      port: 80
+      nodePort: 30005
+
+  selector:
+    name: result-app-pod
+    app: demo-voting-app
+
+
+
+  ```
+
+  ###### Let's start creating the objects
+
+  ```
+$ kubectl create -f voting-app-pod.yml 
+pod/voting-app-pod created
+
+$ kubectl create -f voting-app-service.yml 
+service/voting-service created
+
+$ kubectl get pods,svc
+NAME                 READY   STATUS    RESTARTS   AGE
+pod/voting-app-pod   1/1     Running   0          6m8s
+
+NAME                     TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)        AGE  
+service/kubernetes       ClusterIP   10.96.0.1       <none>        443/TCP        17d  
+service/voting-service   NodePort    10.109.194.12   <none>        80:30004/TCP   5m23s
+  ```
+```
+$ kubectl create -f redis-pod.yml 
+pod/redis-pod created
+
+deles@DESKTOP-PURLK18 MINGW64 ~/Documents/kubernetes-microservices-architecture/VOTING-APP (main)
+$ kubectl create -f redis-service.yml 
+service/redis created
+```
+```
+$ kubectl get pods,service
+NAME                 READY   STATUS    RESTARTS   AGE
+pod/redis-pod        1/1     Running   0          71s
+pod/voting-app-pod   1/1     Running   0          47m
+
+NAME                     TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)        AGE
+service/kubernetes       ClusterIP   10.96.0.1       <none>        443/TCP        18d
+service/redis            ClusterIP   10.100.87.82    <none>        6379/TCP       48s
+service/voting-service   NodePort    10.109.194.12   <none>        80:30004/TCP   46m
+```
