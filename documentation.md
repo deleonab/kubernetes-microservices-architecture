@@ -441,10 +441,37 @@ kubernetes      ClusterIP   10.96.0.1        <none>        443/TCP        16d
 myapp-service   NodePort    10.102.126.214   <none>        80:30004/TCP   10m
 ```
 ##### Retrieve service url
+```
 $ minikube service myapp-service --url
 ```
 
+##### ---------------------------
+##### START BUILDING AND DEPLOYING 5 MICRO SERVICES APPLICATION IN KUBERNETES CLUSTER
 
+##### 1. VOTING APP
+```
+mkdir VOTING-APP | touch VOTING-APP/voting-app-pod.yml
+```
+##### voting-app-pod.yml
+
+```
+apiVersion: v1 
+kind: Pod
+metadata:
+   name: voting-app-pod
+   labels:
+      name: voting-app-pod
+      app: demo-voting-app
+
+spec:
+  containers:
+    - name: voting-app
+      image: kodekloud/examplevotingapp_vote:v1
+      ports:
+        - containerPort: 80
+        
+
+```
 
 
 
