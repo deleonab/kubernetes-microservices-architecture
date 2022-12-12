@@ -473,7 +473,93 @@ spec:
 
 ```
 
+```
+$ touch VOTING-APP/result-app-pod.yml
+```
+```
+apiVersion: v1 
+kind: Pod
+metadata:
+   name: result-app-pod
+   labels:
+      name: result-app-pod
+      app: demo-voting-app
+
+spec:
+  containers:
+    - name: result-app
+      image: kodekloud/examplevotingapp_result:v1
+      ports:
+        - containerPort: 80
+        
+
+```
+$ touch VOTING-APP/redis-pod.yml
+```
+```
+apiVersion: v1 
+kind: Pod
+metadata:
+   name: redis-pod
+   labels:
+      name: redis-pod
+      app: demo-voting-app
+
+spec:
+  containers:
+    - name: redis
+      image: redis
+      ports:
+        - containerPort: 6379
+        
+
+```
 
 
+$ touch VOTING-APP/postgres-pod.yml
+```
+```
+apiVersion: v1 
+kind: Pod
+metadata:
+   name: postgres-pod
+   labels:
+      name: postgres-pod
+      app: demo-voting-app
 
+spec:
+  containers:
+    - name: postgres
+      image: postgres
+      ports:
+        - containerPort: 5432
+      env:
+        - name: POSTGRESS_USER
+          value: "postgres"
+        - name: POSTGRES_PASSWORD
+          value: "postgres"  
+        
+```
+
+
+$ touch VOTING-APP/worker-pod.yml
+```
+```
+apiVersion: v1 
+kind: Pod
+metadata:
+   name: worker-pod
+   labels:
+      name: worker-pod
+      app: demo-voting-app
+
+spec:
+  containers:
+    - name: worker-app
+      image: kodekloud/examplevotingapp_worker:v1
+      
+        
+
+```
+##### NEXT I WILL SET UP THE SERVICES.
 
