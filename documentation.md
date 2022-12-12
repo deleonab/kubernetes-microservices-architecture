@@ -561,5 +561,14 @@ spec:
         
 
 ```
-##### NEXT I WILL SET UP THE SERVICES.
+##### NEXT I WILL SET UP THE SERVICES. The worker pod doesn't need a service as no pod pr service needs to connect to it.
 
+```
+$ touch VOTING-APP/redis-service.yml
+
+$ touch VOTING-APP/postgres-service.yml
+
+$ touch VOTING-APP/voting-app-service.yml                                                                          
+
+$ touch VOTING-APP/result-service.yml
+```
