@@ -701,3 +701,18 @@ service/kubernetes       ClusterIP   10.96.0.1       <none>        443/TCP      
 service/redis            ClusterIP   10.100.87.82    <none>        6379/TCP       48s
 service/voting-service   NodePort    10.109.194.12   <none>        80:30004/TCP   46m
 ```
+
+```
+
+$ kubectl create -f postgres-pod.yml
+pod/postgres-pod created
+
+$ kubectl create -f postgres-service.yml 
+service/db created
+
+$ kubectl create -f result-app-pod.yml
+pod/result-app-pod created
+
+$ kubectl create -f result-service.yml 
+service/result-service created
+```
